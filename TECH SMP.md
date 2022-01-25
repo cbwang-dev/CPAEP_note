@@ -1,0 +1,1 @@
+homogeneous multicore processor with shared memory 

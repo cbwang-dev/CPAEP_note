@@ -1,0 +1,2 @@
+in GPU, To compute the color of output pixels, shading computations in the OpenGL graphics pipeline access data stored in large DRAM-resident buffers called textures. Mobile GPUs employ traditional caching mechanisms and on-chip static RAMs to reduce memory traffic as much as possible, but like their desktop GPU counterparts, they also use a large degree of hardware multithreading to avoid ALU stalls by hiding the latency of off-chip data access.
+

@@ -1,0 +1,125 @@
+{
+  "main": {
+    "id": "e1fbe6ec7dcb252b",
+    "type": "split",
+    "children": [
+      {
+        "id": "a5a8566d62dcab34",
+        "type": "leaf",
+        "state": {
+          "type": "markdown",
+          "state": {
+            "file": "CHIP Google TPU.md",
+            "mode": "source",
+            "source": true
+          }
+        }
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "f3da41f3eafccc6e",
+    "type": "split",
+    "children": [
+      {
+        "id": "b2e57d7cf79b543f",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "43ad986ff5ad406e",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {}
+            }
+          },
+          {
+            "id": "e120cb6f5e24ed4f",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "TPU_",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 235.0036334991455
+  },
+  "right": {
+    "id": "c8b78d10c18d5398",
+    "type": "split",
+    "children": [
+      {
+        "id": "5a6837df6850c78a",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "4a2ca776e63f4324",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "CHIP Google TPU.md",
+                "collapseAll": true,
+                "extraContext": true,
+                "sortOrder": "alphabetical",
+                "showSearch": true,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "2ebeb6da41599421",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "CHIP Google TPU.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "ea4079f5a69d2da0",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 221.18199157714844
+  },
+  "active": "a5a8566d62dcab34",
+  "lastOpenFiles": [
+    "CHIP Google TPU.md",
+    "plots/TPU_2.png",
+    "plots/TPU_1.png",
+    "Q L7.md",
+    "Q L5.md",
+    "Q L6.md",
+    "Q L4.md",
+    "Q L3.md",
+    "readme.md",
+    "TECH parallelization (spatial).md"
+  ]
+}

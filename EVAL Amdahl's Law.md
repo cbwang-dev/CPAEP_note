@@ -1,0 +1,1 @@
+Amdahl's Law prevents more parallelism. 
