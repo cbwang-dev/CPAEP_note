@@ -16,10 +16,10 @@ In the simple `parfor` scenario, TP gain if BW sufficient for feeding these MACs
 | ------------------ | -------------------------- | ------------------------- |
 | Iterate in batches | Iterate in output channels | Iterate in input channels | 
 
-By doing parallization, one can improve [[EVAL arithmetic intensity]]. 
+By doing parallization, one can improve [[arithmetic intensity]]. 
 
 Examples:
-- [[TECH GPU#Nvidia Tensor Cores]]: reuse input, output and weights
-- [[TECH AMX#Intel AMX]]: 
-- [[CHIP Tesla NPU]]: 96 by 96 MAC array 
-- [[CHIP Huawei DaVinci]]: 3D spatial unrolling, best [[EVAL arithmetic intensity]]. 
+- [[GPU#Nvidia Tensor Cores]]: reuse input, output and weights
+- [[AMX#Intel AMX]]: 
+- [[Tesla NPU]]: 96 by 96 MAC array 
+- [[CHIP Huawei DaVinci]]: 3D spatial unrolling, best [[arithmetic intensity]]. 

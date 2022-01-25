@@ -4,7 +4,7 @@
 
 - hardwired: no flexibility, fixed to one single application, but fast. 
 - 
-- (cfr. [[CHIP Google Pixel Visual Core]])
+- (cfr. [[Google Pixel Visual Core]])
 
 Differences from CPUs:
 
@@ -17,16 +17,16 @@ Differences from CPUs:
 
 > What additional optimizations are introduced in mobile GPU’s? (from class and [[L2_Fatahalian.pdf]]? 
 
-For GPU design, we want both fruitly resourced and bandwidth efficient processing (cfr. [[TECH GPU]]). Main optimization points are listed below. 
+For GPU design, we want both fruitly resourced and bandwidth efficient processing (cfr. [[GPU]]). Main optimization points are listed below. 
 
 1. For GPU programmable resources: 
-	1. wide SIMD execution (cfr. [[TECH SIMD#GPU Optimization]])
+	1. wide SIMD execution (cfr. [[SIMD#GPU Optimization]])
 	2. accelerated half-precision floating point (fp16): enough for shading operations. 
-	3. multithreaded execution (cfr. [[TECH multithreading]])
+	3. multithreaded execution (cfr. [[multithreading]])
 2. Bandwidth efficient 3D graphics (optimize data buffering and data flow to reduce off-chip access)
 	1. tiled rendering to reduce memory bandwidth
 	2. hardware-accelerated data compression
-	3. aggressive discarding of rendering work (cfr. [[TECH rendering#Aggressively Discarding]])
+	3. aggressive discarding of rendering work (cfr. [[rendering#Aggressively Discarding]])
 3. Tightly integrate GPU and CPU (cfr. [[Q L8]])
 	1. on the same chip
 	2. shared memory space (coherent memory) and on-chip buffers
@@ -39,7 +39,7 @@ From hardware perspective, FC layer requires too much parameters. For a layer wi
 
 CNN reusing data. 
 
-flexible post processing (pooling, normalization, ReLU, ...) (cfr. [[CHIP Tesla NPU]]). 
+flexible post processing (pooling, normalization, ReLU, ...) (cfr. [[Tesla NPU]]). 
 
 # Question 10
 

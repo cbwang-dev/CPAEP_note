@@ -2,4 +2,4 @@
 	- huge memory
 	- wide memory busses
 	- flexible post processing (pooling, normalization, ReLU, ...)
-	- data aligners: avoid memory repetition of GeMM execution of CONV (cfr. [[TECH stationarity (temporal)]]). 
+	- data aligners: avoid memory repetition of GeMM execution of CONV (cfr. [[stationarity (temporal)]]). 

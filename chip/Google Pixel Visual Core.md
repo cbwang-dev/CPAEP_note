@@ -4,4 +4,4 @@ A dedicated A53 aggregates application layer IPU resource requests and configure
 
 homogeneous design
 
-stencil processor (STP) (cfr. [[TECH SIMD#2D SIMD]])
+stencil processor (STP) (cfr. [[SIMD#2D SIMD]])

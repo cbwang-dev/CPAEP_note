@@ -1,14 +1,14 @@
 # General GeMM workload
 
-[[TECH parallelization (spatial)]]: weight and input reuse
-[[TECH stationarity (temporal)]]: output stationarity
-[[EVAL arithmetic intensity]] 256/32
+[[parallelization (spatial)]]: weight and input reuse
+[[stationarity (temporal)]]: output stationarity
+[[arithmetic intensity]] 256/32
 
 # Speed up convolution better than GeMM
 
 For convolution, it is less efficient to transform it into GeMM, but it is efficient to directly do convolution. 
 - partial stationarity. 
-- [[EVAL arithmetic intensity]] 256/17
+- [[arithmetic intensity]] 256/17
 - benefits more if the kernel is large (7x7). Now smaller kernel is the trend. 
 
 # Speed up MAC: DVAFS

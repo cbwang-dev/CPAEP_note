@@ -9,7 +9,7 @@
 	1. Common sparsity: regularization during training (bad after training) #todo plot
 	2. Structured sparsity: Lasso regularization
 4. Sparsity (broad sense) can be utilized to increase IO BW and reduce processing energy (sparse processors)
-	- dense CNN processor + MAC gating and DRAM compression: [[CHIP Envision#Utilizing sparsity by Huffman encoding]]. 
+	- dense CNN processor + MAC gating and DRAM compression: [[Envision#Utilizing sparsity by Huffman encoding]]. 
 		- Overhead as common dense CNN processor. 
 		- No benefit to TP while underutilizing HW. 
 	- sparse CNN processor: [[CHIP EIE]]. Send only nonzero inputs and non-zero outputs to MACs. Utilize all MACs while preserving many book keepings. **There exists tradeoff between overhead introduced by book keepings and speed up w.r.t. utilization of MACs.** 

@@ -1,6 +1,8 @@
+# CPAEP Notes
+
 This is the main entry of compiled answers to the course [Compute Platforms for AI and Embedded Processing](https://onderwijsaanbod.kuleuven.be/syllabi/e/H05H2AE.htm). Best viewed in [Obsidian](https://obsidian.md/). 
 
-Bear in mind that each question has potential to be a 6/20 question. So be concise while preparing. 
+## Start Here
 
 - [[Q L1]]: 
 - [[Q L2]]: GPU, ISP, 
@@ -12,8 +14,11 @@ Bear in mind that each question has potential to be a 6/20 question. So be conci
 - [[Q L8]]: Operating heterogeneous SoCs, power/performance management, verification time
 - [[Q L9]]: guest lecture, industry
 
+## Obsidian Specific
 
 Hotkey configurations: 
-- navigate forward: command+]
-- navigate backward: command+\[
-- toggle preview: command+e
+- navigate forward: `command`+`]`
+- navigate backward: `command`+`[`
+- toggle preview: `command`+`e`
+
+Mention that some bugs occur in the transmission of configuration file `./.obsidian/`. Redesign your Obsidian configuration for a better view if necessary. 

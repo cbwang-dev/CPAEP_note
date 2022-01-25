@@ -7,12 +7,8 @@
         "id": "a5a8566d62dcab34",
         "type": "leaf",
         "state": {
-          "type": "markdown",
-          "state": {
-            "file": "CHIP Google TPU.md",
-            "mode": "source",
-            "source": true
-          }
+          "type": "empty",
+          "state": {}
         }
       }
     ],
@@ -69,7 +65,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "CHIP Google TPU.md",
                 "collapseAll": true,
                 "extraContext": true,
                 "sortOrder": "alphabetical",
@@ -86,7 +81,6 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "CHIP Google TPU.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -111,15 +105,15 @@
   },
   "active": "a5a8566d62dcab34",
   "lastOpenFiles": [
-    "CHIP Google TPU.md",
-    "plots/TPU_2.png",
-    "plots/TPU_1.png",
-    "Q L7.md",
-    "Q L5.md",
-    "Q L6.md",
-    "Q L4.md",
-    "Q L3.md",
-    "readme.md",
-    "TECH parallelization (spatial).md"
+    "heterogeneous multicore.md",
+    "chip/Apple A13.md",
+    "Intel Core i7.md",
+    "Tesla NPU.md",
+    "Jetson Xavier.md",
+    "Google TPU.md",
+    "Google Pixel Visual Core.md",
+    "Cortex A53-A57.md",
+    "BinarEye.md",
+    "Apple M1.md"
   ]
 }
