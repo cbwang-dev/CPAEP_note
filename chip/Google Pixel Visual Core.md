@@ -1,7 +1,15 @@
-IPU, co-processor hold HDR+ algorithm
+Introduction: Can do demosaicing; denoising; other (many) picture enhancement processing *before data hits the DRAM/CPU*
 
-A dedicated A53 aggregates application layer IPU resource requests and configures appropriately. 
+Properties: 
+- massively exploiting parallelism: stencil processor (STP) 
+	- share data only locally to their neighbors
+	- data immediately consumed and sent to next processor
+- increase flexibility with limited function coverage. 
+- dedicated buffers and dataflows. 
 
-homogeneous design
+- IPU, co-processor hold HDR+ algorithm
+- A dedicated A53 aggregates application layer IPU resource requests and configures appropriately. 
+- homogeneous design
 
-stencil processor (STP) (cfr. [[SIMD#2D SIMD]])
+![[PVC.png]]
+![[stencil.png]]

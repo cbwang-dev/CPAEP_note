@@ -9,13 +9,14 @@
 	1. Common sparsity: regularization during training (bad after training) #todo plot
 	2. Structured sparsity: Lasso regularization
 4. Sparsity (broad sense) can be utilized to increase IO BW and reduce processing energy (sparse processors)
-	- dense CNN processor + MAC gating and DRAM compression: [[Envision#Utilizing sparsity by Huffman encoding]]. 
+	- dense CNN processor + MAC gating and DRAM compression: [[Envision#Utilizing sparsity]]. 
+		- *sparsity flags guard memory read and MAC execution.* 
 		- Overhead as common dense CNN processor. 
-		- No benefit to TP while underutilizing HW. 
-	- sparse CNN processor: [[CHIP EIE]]. Send only nonzero inputs and non-zero outputs to MACs. Utilize all MACs while preserving many book keepings. **There exists tradeoff between overhead introduced by book keepings and speed up w.r.t. utilization of MACs.** 
+		- No benefit to TP while underutilizing HW. (not real, more advanced methods available)
+	- sparse CNN processor: [[CHIP EIE]]. *Send only nonzero inputs and non-zero outputs to MACs.* Utilize all MACs while preserving many book keepings. **There exists tradeoff between overhead introduced by book keepings and speed up w.r.t. utilization of MACs.** 
 		- Overhead bigger than common dense CNN processor. 
 		- Benefit more when huge sparsity. 
-5. Structured sparsity can be more beneficial. #todo comparison plot
+5. Structured sparsity can be more beneficial. 
 
 # Question 20
 > How can one analytically estimate the energy for executing a given neural network layer on a given hardware architecture? (cfr. [[#Question 22#Example for loop]])
@@ -27,7 +28,7 @@
 
 > How can one analytically estimate the latency for executing a given neural network layer on a given hardware architecture? (cfr. [[#Question 22#Example for loop]])
 
-(both this and how to compute BW are not going into details)
+Sum of computation cycles + memory access (w.r.t BW)
 
 1. Spatial utilization
 	- Programming array fully mapped. In the example, we are using 256 MACs, so compared to the MACs (or PEs) in the system, we can say whether the system is utilized or not. 
@@ -52,23 +53,22 @@ for (k1 = 0 to K/K2-1)           // for each output channel
 			for (x1 = 0 to X/X2-1)     // for each input column
 				for (fy = 0 to FY-1)     // for each kernel column
 					for (fx = 0 to FX-1)   // for each kernel row
-// === L1 RF, within processing array (PE) === //
+// === L1 RF, within processing element (PE) === //
 						parfor(x2 = 0 to X2-1) // for input column  (spatially unrolled)
 						parfor(k2 = 0 to K2-1) // for output column (spatially unrolled)
 							o[k][x][y] += i[c][x+fx][y+fy] * w[k][c][fx][fy]
 ```
 
-| type | output size                 | input size           | weight size                |
-| ---- | --------------------------- | -------------------- | -------------------------- |
-| DRAM | $K\cdot X\cdot Y$           | $C\cdot X\cdot Y$    | $K\cdot C\cdot FX\cdot FY$ |
-| SRAM | $K2\cdot X2\cdot X1\cdot Y$ | $X2\cdot X1\cdot Y$  | $K2\cdot FX\cdot FY$       |
-| RF   | $K2\cdot X2$                | $X2\cdot FX\cdot FY$ | $K2\cdot FX\cdot FY$       | 
+| type | output size                 | input size          | weight size                |
+| ---- | --------------------------- | ------------------- | -------------------------- |
+| DRAM | $K\cdot X\cdot Y$           | $C\cdot X\cdot Y$   | $K\cdot C\cdot FX\cdot FY$ |
+| SRAM | $K2\cdot X2\cdot X1\cdot Y$ | $X2\cdot X1\cdot Y$ | $K2\cdot FX\cdot FY$       |
+| RF   | $K2\cdot X2$                | $X2$                | $K2$                       | 
 
 comments: 
 - ($K2=16$, $X2=16$)
 - The question is, does the 256-MAC operation per CC get sufficient data? 
 - What spatial and temporal reuse of this for loop? 
-- #todo 我觉得RF错了， input size=X2, weight size=K2
 
 ## alternative for loop 1
 
@@ -77,21 +77,21 @@ comments:
 for (k1 = 0 to K/K2-1)           // for each output channel
 	for (c = 0 to C-1)             // for each input channel
 		for (y = 0 to Y-1)           // for each input row
-			for (x1 = 0 to X/X2-1)     // for each input column
 // === L2 SRAM, within chip === //
+			for (x1 = 0 to X/X2-1)     // for each input column
 				for (fy = 0 to FY-1)     // for each kernel column
 					for (fx = 0 to FX-1)   // for each kernel row
-// === L1 RF, within processing array (PE) === //
+// === L1 RF, within processing element (PE) === //
 						parfor(x2 = 0 to X2-1) // for input column  (spatially unrolled)
 						parfor(k2 = 0 to K2-1) // for output column (spatially unrolled)
 							o[k][x][y] += i[c][x+fx][y+fy] * w[k][c][fx][fy]
 ```
 
-| type | output size          | input size           | weight size                |
-| ---- | -------------------- | -------------------- | -------------------------- |
-| DRAM | $K\cdot X\cdot Y$    | $C\cdot X\cdot Y$    | $K\cdot C\cdot FX\cdot FY$ |
-| SRAM | $K2\cdot X2\cdot X1$ | $X2\cdot X1$         | $K2\cdot FX\cdot FY$       |
-| RF   | $K2\cdot X2$         | $X2\cdot FX\cdot FY$ | $K2\cdot FX\cdot FY$       |
+| type | output size          | input size        | weight size                |
+| ---- | -------------------- | ----------------- | -------------------------- |
+| DRAM | $K\cdot X\cdot Y$    | $C\cdot X\cdot Y$ | $K\cdot C\cdot FX\cdot FY$ |
+| SRAM | $K2\cdot (X2\cdot X1)$ | $X2\cdot X1$      | $K2\cdot FX\cdot FY$       |
+| RF   | $K2\cdot X2$         | $X2$              | $K2$                       | 
 
 comments:
 - smaller SRAM, bout more access to DRAM. 
@@ -107,12 +107,12 @@ for (k1 = 0 to K/K2-1)           // for each output channel
 // === L2 SRAM, within chip === //
 		for (y = 0 to Y-1)           // for each input row
 			for (x1 = 0 to X/X2-1)     // for each input column
-// === L1 RF, within processing array (PE) === //
-				for (fy = 0 to FY-1)     // for each kernel column
-					for (fx = 0 to FX-1)   // for each kernel row
-						parfor(x2 = 0 to X2-1) // for input column  (spatially unrolled)
-						parfor(k2 = 0 to K2-1) // for output column (spatially unrolled)
-							o[k][x][y] += i[c][x+fx][y+fy] * w[k][c][fx][fy]
+// === L1 RF, within processing element (PE) === //
+				parfor(fy = 0 to FY-1)     // for each kernel column
+				parfor(fx = 0 to FX-1)   // for each kernel row
+				parfor(x2 = 0 to X2-1) // for input column  (spatially unrolled)
+				parfor(k2 = 0 to K2-1) // for output column (spatially unrolled)
+					o[k][x][y] += i[c][x+fx][y+fy] * w[k][c][fx][fy]
 ```
 
 | type | output size                 | input size           | weight size                |
@@ -121,14 +121,16 @@ for (k1 = 0 to K/K2-1)           // for each output channel
 | SRAM | $K2\cdot X2\cdot X1\cdot Y$ | $X2\cdot X1\cdot Y$  | $K2\cdot FX\cdot FY$       |
 | RF   | $K2\cdot X2$                | $X2\cdot FX\cdot FY$ | $K2\cdot FX\cdot FY$       | 
 
-#todo 我觉得这个是对的
-
 ## conclusion of loop juggling
 
 - loop splitting (cfr. tiling)
 - spatial loops (change `parfor` loops): data reuse
 - loop reordering: stationarity
 - part of them is done by compiler #todo
+- what if
+	- SRAM too large? L2-> L1
+	- mapping PE area not efficient? adding parfor or change parfor target. 
+	- SRAM access too large? RF ++
 
 
 # Question 23
@@ -137,9 +139,20 @@ for (k1 = 0 to K/K2-1)           // for each output channel
 
 Challenges: 
 - Still HW unaware in AutoML: The number of operation maybe is not the thing that hurts most. 
-	- matbe because of the poor design of loss function or reward in RL
-	- follow up: MNASNet (combine phones or actual HW into the loop)
-		- ahrd to model real hardware because there are some other tasks run simultaneously in an actual phone.
-		- Still, search space is huge, only Google has such huge compute power
+	- maybe because of the poor design of loss function or reward in RL
+	- hard to model real hardware because there are some other tasks run simultaneously in an actual phone. (accuracy latency tradeoff) (black box model) (latency is not accurate)
+	- Still, search space is huge, only Google has such huge compute power
+- follow up: MNASNet (combine phones or actual HW into the loop)
+	- summary: block-ize. 
+Also see guest lecture. 
+      
 
-Also see gurst lecture. 
+HW-aware neural network design it’s also complicated due to:
+
+-   Humongous model solution space offered by layer shape hyperparameters (width), types of layers and depth of the network.
+-   Pareto curve strongly depends on which function we would like to minimize.
+
+Evaluation of networks also requires significant computational effort, since every solution should be trained and its accuracy evaluated. Also training parameters may differ with models. And it is obvious how this becomes more relevant with complex tasks.
+
+A common way to reduce solution space is using multi-objective heuristic algorithms like evolutionary algorithms or reinforcement learning.
+

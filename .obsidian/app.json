@@ -3,9 +3,10 @@
   "livePreview": false,
   "promptDelete": false,
   "alwaysUpdateLinks": true,
-  "spellcheck": false,
+  "spellcheck": true,
   "tabSize": 2,
   "foldIndent": false,
   "foldHeading": false,
-  "readableLineLength": false
+  "readableLineLength": false,
+  "attachmentFolderPath": "/"
 }

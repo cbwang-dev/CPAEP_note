@@ -1,6 +1,8 @@
 # Introduction
 
-GeMM stands for General Matrix Multiplication. It is part of the BLAS library. It can utilize the parallelism in CPUs and GPUs. 
+GeMM stands for General Matrix Multiplication. It is part of the BLAS library. It can utilize the parallelism in CPUs and GPUs.       
+
+Every clock cycle, output of matrix updates its element of C, using one row of A and one column of B to multiply and the accumulation. Such as for 4x4 matrix, there are 16 multiplications and 16 accumulation at one time.
 
 Useful sources: [Why GEMM is at the heart of deep learning](https://petewarden.com/2015/04/20/why-gemm-is-at-the-heart-of-deep-learning/), 
 

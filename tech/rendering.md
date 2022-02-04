@@ -1,1 +1,17 @@
+This is part of [[L2_Fatahalian.pdf]]. 
+
+![[early_discarding.png]]
+
+# Tiled Rendering to Reduce Memory Bandwidth
+
+Tiled rendering systems (Figure) reorganize the rendering pipeline into two phases that reduce memory traffic by increasing the *temporal locality* of accesses to output image pixels. The first phase of rendering partitions the screen into disjoint regions called tiles and sorts scene primitives according to the tiles they overlap. In the second phase, each tile is independently rendered using only the scene primitives determined (in phase 1) to be visible in that region of the screen.
+
+The advantage of tiled rendering is that tiles can be sized to ensure all pixel data for a tile *remains resident in on-chip storage* (for example, small tile sizes, such as 16 × 16 or 32 × 32 pixels, are common). As a result, when rendering a tile, all updates to pixels in the tile (for the entire scene’s worth of geometry) can be serviced without incurring off-chip memory traffic. Only when a tile has been fully rendered must final pixel values be transferred to memory for subsequent display.
+
+Tiled rendering incurs the overhead of two phases of computation and must store intermediate results (per-tile primitive lists) to memory between phases. However, because current mobile graphics workloads feature only a modest number of scene primitives and are rendered to extremely high pixel count displays, improving the locality of access to pixel data often yields significant energy-efficiency benefits. Evolution of mobile 3D graphics workloads toward increasingly high geometric complexity scenes will require mobile GPU architects to reevaluate the efficiency of their current tiling methods. For example, Qualcomm’s Adreno mobile GPUs already features the ability to dynamically select between tiled and non-tiled rendering methods based on characteristics of the 3D rendering workload.
+
 # Aggressively Discarding
+
+Mobile GPUs further conserve memory bandwidth and reduce overall energy consumption by seeking to perform as little work as possible to render an image. Mobile GPUs aggressively discard primitives (or pieces of primitives) from the rendering pipeline when it’s determined that they won’t contribute to the final image. *For example, it’s wasteful for a GPU to compute per-pixel lighting and shading computations (and access off-chip texture data required by these computations) for an object that is later determined to be occluded by another object in the scene.*
+
+One popular technique for avoiding nearly all unnecessary per-pixel shading computations is *to defer shading computations until after the visibility of all scene geometry in a tile (or screen region) is known.* In desktop graphics applications, these deferred shading optimizations are typically implemented by applications on top of the OpenGL pipeline implementation. On mobile platforms, they’re often directly accelerated by GPU hardware, because it’s efficient to perform deferred shading as part of tiled OpenGL pipeline implementations. Mobile GPUs also perform additional work-elimination optimizations such as skipping updates to pixels that don’t change from frame to frame (for example, ARM’s memory transaction elimination).

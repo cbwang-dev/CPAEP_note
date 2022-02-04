@@ -4,8 +4,6 @@ Parallelization is for optimizing spatial unrolling. It reduces MEM/RF energy an
 
 In the simple `parfor` scenario, TP gain if BW sufficient for feeding these MACs, but not too much energy gains. This does not hold true after exploiting parallelization by possibly sharing data in these MAC elements. 
  
-[[TECH dataflow optimization]]
-
 ![Spatial data reuse](parallelization.png)
 - Sidenote 1: FMA stands for Fused Multiply Add)
 - Sidenote 2: Not all neural nets can exploit these parallelism. 

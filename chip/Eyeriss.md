@@ -1,0 +1,1 @@
+Row stationarity, extra adders at each column output

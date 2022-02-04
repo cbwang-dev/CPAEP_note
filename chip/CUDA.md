@@ -1,0 +1,1 @@
+(Each of core has their own memory system, once GPU needs data located in CPU memory system, before access happen, OS does the actual copying, but cpu and gpu won’t realize this copying manner).

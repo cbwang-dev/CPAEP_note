@@ -17,3 +17,5 @@ Fully weight stationarity, row (eg. $i_{0,0}$ to $i_{0,4}$) stationarity
 
 - It is not a power efficient solution regardless of saving access to memory, because of switching huge amount of registers. 
 - Big on chip memory, and lots of data reuse. 
+
+roofline model explaination. 
